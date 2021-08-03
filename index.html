@@ -15,7 +15,7 @@
 
     <script src="three.js"></script>
     <script src="GLTFLoader.js"></script>
-    <script src="https://gist.github.com/jonathanlurie/bcedf6153a33ec64ab0f7c45e4e6fb70.js"></script>
+    <script src="OrbitControls.js"></script>
 
     <script>
 
@@ -64,7 +64,25 @@
         mesh.position.z = -240;
     }
 
-    function 
+    const controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+//controls.update() must be called after any manual changes to the camera's transform
+
+controls.rotateSpeed = 0.2;
+controls.panSpeed = 0.2;
+controls.target.set(camera.position.x , camera.position.y, 
+                   camera.position.z);
+                camera.position.set( 0, 20, 80 );
+                
+                controls.enableZoom = true;
+                controls.maxZoom = 1000;
+// controls.mouseButtons = {
+// 	LEFT: THREE.MOUSE.ROTATE,
+// 	MIDDLE: THREE.MOUSE.DOLLY,
+// 	RIGHT: THREE.MOUSE.PAN
+// }
+controls.update();
+
 
 
     //RENDER LOOP
@@ -84,6 +102,12 @@
             //animation mesh
             // mesh.morphTargetInfluences[ 0 ] = Math.sin(delta) * 20.0;
         }
+
+
+
+// required if controls.enableDamping or controls.autoRotate are set to true
+controls.update();
+
 
     	renderer.render(scene, camera);
 
